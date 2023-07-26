@@ -10,18 +10,114 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
         {% if title %}
             <title>BetweenFriends - {{ title }} </title>
         {% else %}
             <title>BetweenFriends</title>
         {% endif %}
+
+        <style>
+            
+            body {
+            background: #d5e6ec;
+            color: #252424;
+            margin-top: 5rem;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                color: #444444;
+            }
+            
+            ul {
+                margin: 0;
+            }
+            
+            .bg-cloudy {
+                background-color: #2f6e92;
+            }
+
+            .bg-suny {
+                background-color: #d1f1fc;
+            }
+            
+            .site-header .navbar-nav .nav-link {
+                color: #add8e6;
+            }
+            
+            .site-header .navbar-nav .nav-link:hover {
+                color: #ffffff;
+            }
+            
+            .site-header .navbar-nav .nav-link.active {
+                font-weight: 500;
+            }
+            
+            .content-section {
+                background: #d1f1fc;
+                padding: 10px 20px;
+                border: 1px solid #2f6e93;
+                border-radius: 3px;
+                margin-bottom: 20px;
+            }
+
+            .article-author {
+                color: #2f6e92
+            }
+            .article-title {
+                color: #444444;
+            }
+            
+            a.article-title:hover {
+                color: #2f6e92;
+                text-decoration: none;
+            }
+            
+            .article-content {
+                white-space: pre-line;
+            }
+            
+            .article-img {
+                height: 65px;
+                width: 65px;
+                margin-right: 16px;
+            }
+            
+            .article-metadata {
+                padding-bottom: 1px;
+                margin-bottom: 4px;
+                border-bottom: 1px solid #2f6e93
+            }
+            
+            .article-metadata a:hover {
+                color: #333;
+                text-decoration: none;
+            }
+            
+            .article-svg {
+                width: 25px;
+                height: 25px;
+                vertical-align: middle;
+            }
+            
+            .account-img {
+                height: 125px;
+                width: 125px;
+                margin-right: 20px;
+                margin-bottom: 16px;
+            }
+            
+            .account-heading {
+                font-size: 2.5rem;
+            }
+            
+        </style>
     </head>
     <body>
 
         <header class="site-header" >
-            <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+            
+            <nav class="navbar navbar-expand-md navbar-dark bg-cloudy fixed-top">
                 <div class="container">
                     <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Django Blog</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,34 +125,42 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarToggle">
                         <div class="navbar-nav mr-auto">
-                            <a class="nav-link active" aria-current="page"href="{% url 'blog-home' %}">Home</a>
-                            <a class="nav-link" href="{% url 'blog-about' %}">About</a>
+                            <a class="nav-item nav-link active" href="{% url 'blog-home' %}">Home</a>
+                            <a class="nav-item nav-link"  href="{% url 'blog-about' %}">About</a>
                         </div>
                     </div>
-                    
-                    <!-- right corner -->
+                    <!-- Navbar Right Side -->
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link" href="#">Login</a>
-                        <a class="nav-item nav-link" href="#">Register</a>
-                    </div>
+                        <a class="navbar-expand-lg nav-link" href="#">Login</a>
+                        <a class="navbar-expand-lg nav-link" href="#">Register</a>
+                    </div>  
                 </div>
             </nav>
+            
         </header>
+        
 
         <main role="main" class="container">
             <div class="row">
                 <div class="col-md-8">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                     {% block content %}{% endblock %}
                 </div>
                 <div class="col-md-4">
                     <div class="content-section">
-                        <h3>Our Sidebar</h3>
-                        <p class='text-muted'>You can put any information here you'd like.
+                        <h3 >Announcement</h3>
+                        <p class='text'>Andrei is going to be the best software engineer!!!
                             <ul class="list-group">
-                                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                                <li class="list-group-item list-group-item-light">Announcements</li>
-                                <li class="list-group-item list-group-item-light">Calendars</li>
-                                <li class="list-group-item list-group-item-light">etc</li>
+                                <li class="list-group-item content-section bg-suny">Latest Posts</li>
+                                <li class="list-group-item content-section bg-suny">Announcements</li>
+                                <li class="list-group-item content-section bg-suny">Calendars</li>
+                                <li class="list-group-item content-section bg-suny">etc</li>
                             </ul>
                         </p>
                     </div>
