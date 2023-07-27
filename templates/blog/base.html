@@ -41,6 +41,10 @@
                 background-color: #d1f1fc;
             }
             
+            .bg-blue-white {
+                background-color: #d5e6ec
+            }
+            
             .site-header .navbar-nav .nav-link {
                 color: #add8e6;
             }
@@ -118,10 +122,11 @@
             }
             
             .line-color {
-                padding-bottom: 1px;
-                margin-bottom: 4px;
+                padding-bottom: 2px;
+                margin-bottom: 0px;
                 border-bottom: 1px solid #2f6e93
             }
+
         </style>
     </head>
     <body>
@@ -142,8 +147,13 @@
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
-                        <a class="navbar-expand-lg nav-link" href="#">Login</a>
-                        <a class="navbar-expand-lg nav-link" href="#">Register</a>
+                        {% if user.is_authenticated %}
+                            <a class="navbar-expand-lg nav-link" href="{% url 'profile' %}">Profile</a>
+                            <a class="navbar-expand-lg nav-link" href="{% url 'logout' %}">Logout</a>
+                        {% else %}
+                            <a class="navbar-expand-lg nav-link" href="{% url 'login' %}">Login</a>
+                            <a class="navbar-expand-lg nav-link" href="{% url 'register' %}">Register</a>
+                        {% endif %}
                     </div>  
                 </div>
             </nav>
@@ -165,8 +175,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="content-section">
-                        <h3 >Announcement</h3>
-                        <p class='text'>Andrei is going to be the best software engineer!!!
+                        <h4 class="text-center line-color">Announcement</h4>
+                        <p class='text-center'>Andrei is going to be the best software engineer!!!
                             <ul class="list-group">
                                 <li class="list-group-item content-section bg-suny">Latest Posts</li>
                                 <li class="list-group-item content-section bg-suny">Announcements</li>
