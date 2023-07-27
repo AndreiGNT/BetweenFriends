@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
+<<<<<<< HEAD
 from .forms import UserRegisterForm
+=======
+>>>>>>> 98546a065815404add54fa2d03a5922726efda34
 from django.contrib import messages
-
+from .forms import UserRegisterForm
 
 def register(request):
     template_name = 'users/register.html'
