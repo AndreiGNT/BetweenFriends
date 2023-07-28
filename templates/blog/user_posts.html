@@ -1,5 +1,9 @@
 {% extends "blog/base.html" %}
 {% block content %}
+    <div class="text-center">
+        <h1 class="mb-3">{{ page_obj.paginator.count }} posts by {{view.kwargs.username}} </h1>
+    </div>
+    
     {% for post in posts %}
         <article class="media content-section">
             <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="error">
@@ -13,6 +17,7 @@
             </div>
         </article>
     {% endfor %}
+
     {% if is_paginated %}
         <div class="text-center">
             {% if page_obj.has_previous %}
@@ -38,4 +43,3 @@
         
     {% endif %}
 {% endblock content %}
-
