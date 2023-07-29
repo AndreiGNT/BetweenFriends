@@ -16,8 +16,9 @@
                 {{ u_form|crispy }}
                 {{ p_form|crispy }}
             </fieldset>
-            <div class="form-group ">
-                <button class="btn btn-info" type="submit">Update</button>
+            <div class="form-group">
+                <button class="btn btn-info text-left" type="submit">Update</button>
+                <a href="{% url 'password_reset' %}">Change Password?</a>
             </div>
         </form>
     </div>
