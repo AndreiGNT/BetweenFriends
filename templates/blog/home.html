@@ -12,29 +12,33 @@
                 <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
                 <p class="article-content">{{ post.content }}</p>
            
-
     
                 <div class="line-color">
-                    <h5 class="article-title">Coments Section</h5>
+                    <h5 class="article-title">Coments</h5>
                 </div>
                 {% if not post.comments.all %}
                     <div class="text-right">
                         <small class="text-right">
-                            No Comments Yet - <a  href="#">Add one</a>
+                            No Comments Yet - <a  href="{% url 'add-comment' post.pk %}">Add one</a>
                         </small>
                     </div>
                 {% else %}
                     {% for comment in post.comments.all %}
                         <div class="article-author">
-                            <small><strong><a class="mr-2 article-author" href="#">{{ comment.name }}</a></strong></small>
+                            <small><strong><a class="mr-2 article-author" href="{% url 'user-posts' post.author.username %}">{{ comment.author }}</a></strong></small>
                             <small class="text-muted">{{ comment.date_added|date:"F d, Y" }}</small>
                         </div>
                         <div>
                             <li class="list-group-item comment-section ">
-                                {{ comment.body }}
+                                {{ comment.content }}
                             </li>
                         </div>
                     {% endfor %}
+                    <div class="text-right">
+                        <small class="text-right">
+                            <a  href="{% url 'add-comment' post.pk %}">Add Comment</a>
+                        </small>
+                    </div>
                 {% endif %}
 
             </div>
