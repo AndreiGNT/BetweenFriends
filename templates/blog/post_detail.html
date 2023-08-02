@@ -1,20 +1,46 @@
 {% extends "blog/base.html" %}
 {% block content %}
     <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="error">
+        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="error">
         <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2 article-author" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
-                <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+                <a class="mr-2 article-author" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
-            <h2 class="article-title">{{ object.title }}</h2>
-            <p class="article-content">{{ object.content }}</p>
-            {% if object.author == user %}
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content">{{ post.content }}</p>
+            {% if post.author == user %}
                 <div class="text-right">
-                    <a class=" btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+                    <a class=" btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
                 </div>
             {% endif %}
         </div>
     </article>
+
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <div>  
+                <h5 class="article-title">Leave A Comment</h5>
+                <textarea name="comment-content"  class="comment" placeholder="Write comment..." required></textarea>
+            </div>
+            <div class="form-group ">
+                <button class="btn btn-outline-info" type="submit">Add Comment</button>
+            </div>
+        </form>
+    </div>    
+
+    {% for comment in post.comments.all %}
+        <div class="article-author">
+            <small><strong><a class="mr-2 article-author" href="{% url 'user-posts' post.author.username %}">{{ comment.author }}</a></strong></small>
+            <small class="text-muted">{{ comment.date_added|date:"F d, Y" }}</small>
+        </div>
+        <div>
+            <li class="list-group-item comment-section ">
+                {{ comment.content }}
+            </li>
+        </div>
+    {% endfor %}
+
 {% endblock content %}

@@ -19,11 +19,11 @@ class Post(models.Model):
 
 
 
-class Coment(models.Model):
+class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     content = models.TextField()
     date_added = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return '%s - %s' % (self.post.title, self.name)
+        return '%s - %s' % (self.post.title, self.author.username)

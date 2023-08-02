@@ -19,24 +19,13 @@
                 {% if not post.comments.all %}
                     <div class="text-right">
                         <small class="text-right">
-                            No Comments Yet - <a  href="{% url 'add-comment' post.pk %}">Add one</a>
+                            No Comments Yet - <a  href="{% url 'post-detail' post.id %}">Add One</a>
                         </small>
                     </div>
                 {% else %}
-                    {% for comment in post.comments.all %}
-                        <div class="article-author">
-                            <small><strong><a class="mr-2 article-author" href="{% url 'user-posts' post.author.username %}">{{ comment.author }}</a></strong></small>
-                            <small class="text-muted">{{ comment.date_added|date:"F d, Y" }}</small>
-                        </div>
-                        <div>
-                            <li class="list-group-item comment-section ">
-                                {{ comment.content }}
-                            </li>
-                        </div>
-                    {% endfor %}
                     <div class="text-right">
                         <small class="text-right">
-                            <a  href="{% url 'add-comment' post.pk %}">Add Comment</a>
+                            Comments - <a  href="{% url 'post-detail' post.id %}">Add Another One</a>
                         </small>
                     </div>
                 {% endif %}
