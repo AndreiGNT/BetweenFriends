@@ -13,19 +13,17 @@
                 <p class="article-content">{{ post.content }}</p>
            
     
-                <div class="line-color">
-                    <h5 class="article-title">Coments</h5>
-                </div>
+                <div class="line-color"></div>
                 {% if not post.comments.all %}
                     <div class="text-right">
                         <small class="text-right">
-                            No Comments Yet - <a  href="{% url 'post-detail' post.id %}">Add One</a>
+                            <strong>No Comments Yet - </strong><a  href="{% url 'post-detail' post.id %}">Add One</a>
                         </small>
                     </div>
                 {% else %}
                     <div class="text-right">
                         <small class="text-right">
-                            Comments - <a  href="{% url 'post-detail' post.id %}">Add Another One</a>
+                            <strong class="article-title">{{ post.comments_count }} Comments - </strong><a  href="{% url 'post-detail' post.id %}">Add Another One</a>
                         </small>
                     </div>
                 {% endif %}
