@@ -3,7 +3,9 @@
 
     {% for post in posts %}
         <article class="media content-section">
-            <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="error">
+            <a href="{% url 'user-posts' post.author.username %}">
+                <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="avatar">
+            </a>
             <div class="media-body">
                 <div class="article-metadata">
                     <a class="mr-2 article-author" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
@@ -57,4 +59,3 @@
         
     {% endif %}
 {% endblock content %}
-

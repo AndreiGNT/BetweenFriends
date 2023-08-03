@@ -95,27 +95,9 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-# class CommentAddView(LoginRequiredMixin, CreateView):
-#     model = Coment
-#     fields = ['content']
-#     template_name = 'blog/add_comment.html'
-#     success_url = '/'
-#     ordering = ['-date_posted']
-
-#     def post(self, request, *args, **kwargs):
-#         self.post = Post.objects.get(id=kwargs['pk'])
-        
-#         return render(request, self.template_name, {})
-
-#     def form_valid(self, form, *args, **kwargs):
-#         form.instance.author = self.request.user
-#         form.instance.post = self.post
-#         return super().form_valid(form)
-    
-
-
 class AboutListView(ListView):
     model = Post
     template_name = 'blog/about.html' 
     ordering = ['-date_posted']
     context_object_name = 'posts'
+    paginate_by = 5
