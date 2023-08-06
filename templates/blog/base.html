@@ -218,24 +218,25 @@
                     {% endif %}
                     {% block content %}{% endblock %}
                 </div>
-
-                <div class="col-md-4">
-                    <div class="content-section">
-                        <h2 class="text-center sidebar-line">Recent Posts</h2>
-                        {% for post in posts %}
-                            <article class="media sidebar-section">
-                                <a href="{% url 'user-posts' post.author.username %}">
-                                    <img class="rounded-circle article-img-sidebar" src="{{ post.author.profile.image.url }}" alt="avatar">
-                                </a>  
-                                <div class="media line-color">
-                                    <a href="{% url 'post-detail' post.id %}">
-                                        <h5 class="article-title">{{ post.title }}</h5>
-                                    </a>
-                                </div>
-                            </article>
-                        {% endfor %}
+                {% if recent_posts %}
+                    <div class="col-md-4">
+                        <div class="content-section">
+                            <h2 class="text-center sidebar-line">Recent Posts</h2>
+                            {% for post in recent_posts %}
+                                <article class="media sidebar-section">
+                                    <a href="{% url 'user-posts' post.author.username %}">
+                                        <img class="rounded-circle article-img-sidebar" src="{{ post.author.profile.image.url }}" alt="avatar">
+                                    </a>  
+                                    <div class="media line-color">
+                                        <a href="{% url 'post-detail' post.id %}">
+                                            <h5 class="article-title">{{ post.title }}</h5>
+                                        </a>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </main>
         

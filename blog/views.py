@@ -14,6 +14,12 @@ class PostListView(ListView):
     paginate_by = 5
 
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.order_by('-date_posted')[:4]
+        return context
+
+
 class UserPostListView(ListView):
     model = Post
     template_name = 'blog/user_posts.html' 
@@ -24,6 +30,11 @@ class UserPostListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
 
         return Post.objects.filter(author=user).order_by('-date_posted')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.order_by('-date_posted')[:4]
+        return context
 
 
 
@@ -55,6 +66,7 @@ class PostDetailView(View):
 
         context['post'] = post
         context['comments'] = Comment.objects.filter(post=post)
+        context['recent_posts'] = Post.objects.order_by('-date_posted')[:4]
         return context
 
 
@@ -67,6 +79,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.order_by('-date_posted')[:4]
+        return context
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -82,6 +99,11 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == post.author:
             return True
         return False
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.order_by('-date_posted')[:4]
+        return context
     
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -93,6 +115,11 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.order_by('-date_posted')[:4]
+        return context
 
 
 class AboutListView(ListView):
@@ -101,3 +128,8 @@ class AboutListView(ListView):
     ordering = ['-date_posted']
     context_object_name = 'posts'
     paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.order_by('-date_posted')[:4]
+        return context
